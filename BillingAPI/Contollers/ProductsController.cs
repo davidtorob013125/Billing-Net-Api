@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Billing.BillingAPI.Infrastructure.Data;
-using Billing.BillingAPI.Domain.Entities;
-using Billing.BillingAPI.DTOs;
+﻿using Billing.BillingAPI.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Billing.BillingAPI.Services.Interfaces;
 
 namespace Billing.BillingAPI.Contollers
 {
@@ -10,51 +8,50 @@ namespace Billing.BillingAPI.Contollers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly BillingDbContext _context;
+        private readonly IProductServices _services;
 
-        public ProductsController(BillingDbContext context)
+        public ProductsController(IProductServices services)
         {
-            _context = context;
+            _services = services;
         }
+
         // GET: api/products
-        // para el menu de compras
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResponseDto>>> GetProducts()
         {
-            var products = await _context.Products
-                .Where(p => p.IsActive)
-                .Select(p => new ProductResponseDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    UnitPrice = p.UnitPrice,
-                    Stock = p.Stock
-                }).ToListAsync();
+            var products = await _services.GetAsync();
             return Ok(products);
         }
 
+        // GET: api/products/{Code}
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<IEnumerable<ProductResponseDto>>> GetProductByCode(string code)
+        {
+            var products = await _services.GetByCodeAsync(code);
+            return Ok(products);
+        }
+
+        // POST: api/products
         [HttpPost]
         public async Task<ActionResult<IEnumerable<ProductResponseDto>>> CreateProduct(ProductCreateDto dto)
         {
-            var product = new Product
-            {
-                Name = dto.Name,
-                UnitPrice = dto.UnitPrice,
-                Stock= dto.Stock
-            };
+            var products = await _services.CreateAsync(dto);
+            return Ok(products);
+        }
 
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+        // PUT: api/products/{code}
+        [HttpPut("code/{code}")]
+        public async Task<ActionResult<IEnumerable<ProductResponseDto>>> UpdateProduct(string code, ProductUpdateDto dto)
+        {
+            var product = await _services.UpdateAsync(code, dto);
+            return Ok(product);
+        }
 
-            var responseDto = new ProductResponseDto
-            {
-                Id = product.Id,
-                Name = product.Name,
-                UnitPrice= product.UnitPrice,
-                Stock = product.Stock
-            };
-
-            return CreatedAtAction(nameof(GetProducts), new { id = product.Id }, responseDto);
+        // DELETE: api/products/{code}
+        [HttpDelete("code/{code}")]
+        public async Task<bool> DeleteProduct(string code)
+        {
+            return await _services.DeleteAsync(code);
         }
     }
 }

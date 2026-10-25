@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Billing.BillingAPI.Domain.Entities;
+﻿using Billing.BillingAPI.Domain.Entities;
 
 namespace Billing.BillingAPI.Services.Interfaces
 {

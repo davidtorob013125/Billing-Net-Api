@@ -13,7 +13,7 @@ namespace Billing.BillingAPI.Domain.Entities
         public decimal Discount { get; set; }
         public decimal TaxRate { get; set; }
         public int Stock { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
     }
 }
