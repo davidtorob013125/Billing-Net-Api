@@ -17,10 +17,12 @@ namespace Billing.BillingAPI.Contollers
             _context = context;
         }
         // GET: api/products
+        // para el menu de compras
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResponseDto>>> GetProducts()
         {
             var products = await _context.Products
+                .Where(p => p.IsActive)
                 .Select(p => new ProductResponseDto
                 {
                     Id = p.Id,
