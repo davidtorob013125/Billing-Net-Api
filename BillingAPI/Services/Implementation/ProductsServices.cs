@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Billing.BillingAPI.Infrastructure.Data;
+﻿using Billing.BillingAPI.DTOs;
+using Microsoft.EntityFrameworkCore;
 using Billing.BillingAPI.Domain.Entities;
-using Billing.BillingAPI.DTOs;
 using Billing.BillingAPI.Services.Interfaces;
+using Billing.BillingAPI.Infrastructure.Data;
 
 namespace Billing.BillingAPI.Services.Implementation
 {
@@ -84,17 +84,16 @@ namespace Billing.BillingAPI.Services.Implementation
             return true;
         }
 
-        //MapResponse
+        //MapToResponse
         private static ProductResponseDto MapToResponse(Product p) => new()
         {
-            Id = p.Id,
             Code = p.Code,
             Name = p.Name,
             UnitPrice = p.UnitPrice,
             Discount = p.Discount,
             TaxRate = p.TaxRate,
             Stock = p.Stock,
-            IsActive = p.IsActive,
+            IsActive = p.IsActive
         };
 
     }
