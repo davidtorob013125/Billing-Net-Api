@@ -161,11 +161,11 @@ namespace Billing.Migrations
                     b.Property<int>("CustomerId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("EmployId")
+                    b.Property<string>("EmployeeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployId1")
+                    b.Property<int>("EmployeeId1")
                         .HasColumnType("int");
 
                     b.Property<string>("InvoiceNumber")
@@ -197,7 +197,7 @@ namespace Billing.Migrations
 
                     b.HasIndex("CustomerId1");
 
-                    b.HasIndex("EmployId1");
+                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Invoices");
                 });
@@ -301,15 +301,15 @@ namespace Billing.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Billing.BillingAPI.Domain.Entities.Employee", "Employ")
+                    b.HasOne("Billing.BillingAPI.Domain.Entities.Employee", "Employee")
                         .WithMany("Invoices")
-                        .HasForeignKey("EmployId1")
+                        .HasForeignKey("EmployeeId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Employ");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Billing.BillingAPI.Domain.Entities.InvoiceItem", b =>
