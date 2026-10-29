@@ -6,20 +6,19 @@ namespace Billing.BillingAPI.DTOs
 {
     public class InvoiceCreateDto
     {
-        public int CustomerId { get; set; }
-        public int EmployeeId { get; set; }
+        public string CustomerId { get; set; }
+        public string EmployeeId { get; set; }
         public List<InvoiceItemCreateDto> Items { get; set; } = new();
     }
 
     public class InvoiceItemCreateDto
     {
-        public int ProductId { get; set; }
+        public string ProductCode { get; set; }
         public int Quantity { get; set; }
     }
 
     public class InvoiceResponseDto
     {
-        public int Id { get; set; }
         public DateTime IssuedAt { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string EmployeeName { get; set; } = string.Empty;

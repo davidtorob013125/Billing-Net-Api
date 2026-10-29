@@ -9,9 +9,9 @@ namespace Billing.BillingAPI.Domain.Entities
     {
         public int Id { get; set; }
         public string InvoiceNumber { get; set; } = string.Empty;
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; } = string.Empty;
         public Customer Customer { get; set; } = null!;
-        public int EmployId {  get; set; }
+        public string EmployId { get; set; } = string.Empty;
         public Employee Employ { get; set; } = null!;
         public DateTime IssueDate { get; set; } = DateTime.UtcNow;
         public InvoiceStatus Status { get; set; } = InvoiceStatus.Draft;

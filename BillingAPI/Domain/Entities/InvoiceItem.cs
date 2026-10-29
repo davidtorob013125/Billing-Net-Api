@@ -9,7 +9,7 @@ namespace Billing.BillingAPI.Domain.Entities
         public int Id { get; set; }
         public int InvoiceId { get; set; }
         public Invoice Invoice { get; set; } = null!;
-        public int ProductId { get; set; }
+        public string ProductCode { get; set; } = string.Empty;
         public Product Product { get; set; } = null!;
 
         public string ProductName { get; set; } = string.Empty;
@@ -23,7 +23,6 @@ namespace Billing.BillingAPI.Domain.Entities
         public decimal TaxAmountLine { get; set; }
         public decimal TotalDiscountLine { get; set; }
         public decimal TotalLine { get; set; }
-
 
     }
 }

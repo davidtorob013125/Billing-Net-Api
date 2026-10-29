@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IProductServices, ProductsServices>();
-builder.Services.AddScoped<ICustomerService, CustomerServices>();
+builder.Services.AddScoped<ICustomerServices, CustomerServices>();
+builder.Services.AddScoped<IEmployeeServices, EmployeeSevices>();
 
 var app = builder.Build();
 

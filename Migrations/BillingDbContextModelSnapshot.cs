@@ -67,6 +67,7 @@ namespace Billing.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DocumentNumber")
@@ -109,6 +110,21 @@ namespace Billing.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DocumentNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -138,10 +154,18 @@ namespace Billing.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerId1")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployId")
+                    b.Property<string>("EmployId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployId1")
                         .HasColumnType("int");
 
                     b.Property<string>("InvoiceNumber")
@@ -171,9 +195,9 @@ namespace Billing.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId1");
 
-                    b.HasIndex("EmployId");
+                    b.HasIndex("EmployId1");
 
                     b.ToTable("Invoices");
                 });
@@ -191,6 +215,10 @@ namespace Billing.Migrations
 
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -269,13 +297,13 @@ namespace Billing.Migrations
                 {
                     b.HasOne("Billing.BillingAPI.Domain.Entities.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("CustomerId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Billing.BillingAPI.Domain.Entities.Employee", "Employ")
                         .WithMany("Invoices")
-                        .HasForeignKey("EmployId")
+                        .HasForeignKey("EmployId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

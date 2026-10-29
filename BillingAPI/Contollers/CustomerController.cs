@@ -7,11 +7,11 @@ namespace Billing.BillingAPI.Contollers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerControllers : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly ICustomerService _service;
+        private readonly ICustomerServices _service;
 
-        public CustomerControllers(ICustomerService service)
+        public CustomerController(ICustomerServices service)
         {
             _service = service;
         }

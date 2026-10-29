@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Billing.BillingAPI.DTOs
 {
-    
     public class CustomerResponseDto
     {
         public string Name { get; set; } = string.Empty;

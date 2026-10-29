@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Billing.BillingAPI.Domain.Entities;
 using Billing.BillingAPI.Services.Interfaces;
 using Billing.BillingAPI.Infrastructure.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Billing.BillingAPI.Services.Implementation
 {
-    public class CustomerServices : ICustomerService
+    public class CustomerServices : ICustomerServices
     {
         private readonly BillingDbContext _context;
 
@@ -43,7 +42,7 @@ namespace Billing.BillingAPI.Services.Implementation
                 DocumentType = dto.DocumentType,
                 DocumentNumber = dto.DocumentNumber,
                 Email = dto.Email,
-                Address = dto.Address,
+                Address = dto.Address
             };
 
             _context.Customers.Add(customer);
@@ -80,7 +79,6 @@ namespace Billing.BillingAPI.Services.Implementation
             if (customer == null) return false;
 
             customer.IsActive = false;
-            _context.Entry(customer).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
 
             return true;
